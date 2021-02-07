@@ -13,7 +13,8 @@ namespace ZeroGC
             ref IntPtr gcHandleManager, /*ref IGCHandleManager */
             ref GcDacVars gcDacVars)
         {
-            return -1;
+            // E_NOTIMPL
+            return unchecked ((int)0x80004001);
         }
 
         [UnmanagedCallersOnly(EntryPoint = "GC_VersionInfo", CallConvs = new Type[] { typeof(CallConvStdcall) })]
@@ -27,12 +28,6 @@ namespace ZeroGC
         }
 
 #if MINI_RUNTIME
-        [UnmanagedCallersOnly(EntryPoint = "_DllMainCRTStartup", CallConvs = new Type[] { typeof(CallConvStdcall) })]
-        static unsafe int _DllMainCRTStartup(IntPtr handle, uint dwReason, IntPtr lpreserved)
-        {
-            return 1;
-        }
-
         [System.Runtime.RuntimeExport("CoreRT_StaticInitialization")]
         IntPtr CoreRT_StaticInitialization()
         {
