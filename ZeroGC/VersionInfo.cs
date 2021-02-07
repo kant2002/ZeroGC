@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace ZeroGC
 {
-    public struct VersionInfo
+    [StructLayout(LayoutKind.Sequential)]
+    public unsafe struct VersionInfo
     {
         public int MajorVersion;
         public int MinorVersion;
         public int BuildVersion;
-        public IntPtr Name;
+        public byte* Name;
     }
 }
