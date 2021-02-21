@@ -4,7 +4,7 @@ namespace ZeroGC
 {
     using uintptr_t = nuint;
 
-    unsafe struct ScanContext
+    public unsafe struct ScanContext
     {
         public void* thread_under_crawl;
         public int thread_number;

@@ -7,12 +7,14 @@ namespace ZeroGC
     public class GCEntry
     {
         [UnmanagedCallersOnly(EntryPoint = "GC_Initialize", CallConvs = new Type[] { typeof(CallConvStdcall) })]
-        public static int GC_Initialize(
-            IntPtr /* IGCToCLR */ clrToGC,
-            ref IntPtr gcHeap, /* ref IGCHeap */
-            ref IntPtr gcHandleManager, /*ref IGCHandleManager */
-            ref GcDacVars gcDacVars)
+        public unsafe static int GC_Initialize(
+            IGCToCLR* clrToGC,
+            IntPtr* gcHeap, /* ref IGCHeap */
+            IntPtr* gcHandleManager, /*ref IGCHandleManager */
+            GcDacVars* gcDacVars)
         {
+            var ok = clrToGC->Vptr->EnablePreemptiveGC(clrToGC);
+            clrToGC->Vptr->DisablePreemptiveGC(clrToGC);
             // E_NOTIMPL
             return unchecked ((int)0x80004001);
         }

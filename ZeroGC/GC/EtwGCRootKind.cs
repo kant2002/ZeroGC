@@ -2,7 +2,7 @@
 
 namespace ZeroGC
 {
-    enum EtwGCRootKind
+    public enum EtwGCRootKind
     {
         kEtwGCRootKindStack = 0,
         kEtwGCRootKindFinalizer = 1,
