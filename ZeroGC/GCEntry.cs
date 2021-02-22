@@ -10,7 +10,7 @@ namespace ZeroGC
         public unsafe static int GC_Initialize(
             IGCToCLR* clrToGC,
             IntPtr* gcHeap, /* ref IGCHeap */
-            IntPtr* gcHandleManager, /*ref IGCHandleManager */
+            IGCHandleManager* gcHandleManager,
             GcDacVars* gcDacVars)
         {
             var ok = clrToGC->Vptr->EnablePreemptiveGC(clrToGC);

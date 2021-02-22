@@ -8,25 +8,30 @@ namespace ZeroGC
 
     // using HANDLESCANPROC = delegate* unmanaged<PTR_UNCHECKED_OBJECTREF, uintptr_t*, uintptr_t, uintptr_t, void>;
 
-    unsafe interface IGCHandleManager
+    public unsafe struct IGCHandleManager
     {
-        bool Initialize();
-        void Shutdown();
-        IGCHandleStore* GetGlobalHandleStore();
-        IGCHandleStore* CreateHandleStore();
-        void DestroyHandleStore(IGCHandleStore* store);
-        OBJECTHANDLE CreateGlobalHandleOfType(Object @object, HandleType type);
-        OBJECTHANDLE CreateDuplicateHandle(OBJECTHANDLE handle);
-        void DestroyHandleOfType(OBJECTHANDLE handle, HandleType type);
-        void DestroyHandleOfUnknownType(OBJECTHANDLE handle);
-        void SetExtraInfoForHandle(OBJECTHANDLE handle, HandleType type, void* pExtraInfo);
-        void* GetExtraInfoFromHandle(OBJECTHANDLE handle);
-        void StoreObjectInHandle(OBJECTHANDLE handle, Object @object);
-        bool StoreObjectInHandleIfNull(OBJECTHANDLE handle, Object @object);
-        void SetDependentHandleSecondary(OBJECTHANDLE handle, Object @object);
-        Object GetDependentHandleSecondary(OBJECTHANDLE handle);
-        Object InterlockedCompareExchangeObjectInHandle(OBJECTHANDLE handle, Object @object, Object comparandObject);
-        HandleType HandleFetchType(OBJECTHANDLE handle);
-        void TraceRefCountedHandles(delegate* unmanaged<PTR_UNCHECKED_OBJECTREF, uintptr_t*, uintptr_t, uintptr_t, void> callback, uintptr_t param1, uintptr_t param2);
+        public IGCHandleManagerVptr* Vptr;
+
+        public struct IGCHandleManagerVptr
+        {
+            public delegate* unmanaged<IGCHandleManager*, bool> Initialize;
+            public delegate* unmanaged<IGCHandleManager*, void> Shutdown;
+            public delegate* unmanaged<IGCHandleManager*, IGCHandleStore*> GetGlobalHandleStore;
+            public delegate* unmanaged<IGCHandleManager*, IGCHandleStore*> CreateHandleStore;
+            public delegate* unmanaged<IGCHandleManager*, IGCHandleStore*, void> DestroyHandleStore;
+            public delegate* unmanaged<IGCHandleManager*, Object, HandleType, OBJECTHANDLE> CreateGlobalHandleOfType;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, OBJECTHANDLE> CreateDuplicateHandle;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, HandleType, void> DestroyHandleOfType;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, void> DestroyHandleOfUnknownType;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, HandleType, void*, void> SetExtraInfoForHandle;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, void*> GetExtraInfoFromHandle;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, Object, void> StoreObjectInHandle;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, Object, bool> StoreObjectInHandleIfNull;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, Object, void> SetDependentHandleSecondary;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, Object> GetDependentHandleSecondary;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, Object, Object, Object> InterlockedCompareExchangeObjectInHandle;
+            public delegate* unmanaged<IGCHandleManager*, OBJECTHANDLE, HandleType> HandleFetchType;
+            public delegate* unmanaged<IGCHandleManager*, delegate* unmanaged<PTR_UNCHECKED_OBJECTREF, uintptr_t*, uintptr_t, uintptr_t, void> /*HANDLESCANPROC*/, uintptr_t, uintptr_t, void> TraceRefCountedHandles;
+        }
     }
 }
