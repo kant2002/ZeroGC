@@ -9,7 +9,7 @@ namespace ZeroGC
         [UnmanagedCallersOnly(EntryPoint = "GC_Initialize", CallConvs = new Type[] { typeof(CallConvStdcall) })]
         public unsafe static int GC_Initialize(
             IGCToCLR* clrToGC,
-            IntPtr* gcHeap, /* ref IGCHeap */
+            IGCHeap* gcHeap,
             IGCHandleManager* gcHandleManager,
             GcDacVars* gcDacVars)
         {
