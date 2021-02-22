@@ -4,8 +4,10 @@ using System.Runtime.InteropServices;
 
 namespace ZeroGC
 {
-    public class GCEntry
+    public static class GCEntry
     {
+        public static ZeroGCHeap globalGcHeap;
+
         [UnmanagedCallersOnly(EntryPoint = "GC_Initialize", CallConvs = new Type[] { typeof(CallConvStdcall) })]
         public unsafe static int GC_Initialize(
             IGCToCLR* clrToGC,
@@ -13,10 +15,12 @@ namespace ZeroGC
             IGCHandleManager* gcHandleManager,
             GcDacVars* gcDacVars)
         {
-            var ok = clrToGC->Vptr->EnablePreemptiveGC(clrToGC);
-            clrToGC->Vptr->DisablePreemptiveGC(clrToGC);
+            globalGcHeap = new ZeroGCHeap(clrToGC);
+            fixed (IGCHeap* gHeap = &globalGcHeap.parent)
+                gcHeap = gHeap;
+
             // E_NOTIMPL
-            return unchecked ((int)0x80004001);
+            return 0;
         }
 
         [UnmanagedCallersOnly(EntryPoint = "GC_VersionInfo", CallConvs = new Type[] { typeof(CallConvStdcall) })]
@@ -31,7 +35,7 @@ namespace ZeroGC
 
 #if MINI_RUNTIME
         [System.Runtime.RuntimeExport("CoreRT_StaticInitialization")]
-        IntPtr CoreRT_StaticInitialization()
+        static IntPtr CoreRT_StaticInitialization()
         {
             return IntPtr.Zero;
         }

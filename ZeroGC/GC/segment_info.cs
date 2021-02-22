@@ -3,8 +3,8 @@
 namespace ZeroGC
 {
     using size_t = nuint;
- 
-    unsafe struct segment_info
+
+    public unsafe struct segment_info
     {
         public void* pvMem; // base of the allocation, not the first object (must add ibFirstObject)
         public size_t ibFirstObject;   // offset to the base of the first object in the segment

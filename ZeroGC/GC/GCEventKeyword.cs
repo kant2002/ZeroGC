@@ -6,7 +6,7 @@ namespace ZeroGC
     // Event keywords corresponding to events that can be fired by the GC. These
     // numbers come from the ETW manifest itself - please make changes to this enum
     // if you add, remove, or change keyword sets that are used by the GC!
-    enum GCEventKeyword
+    public enum GCEventKeyword
     {
         GCEventKeyword_None = 0x0,
         GCEventKeyword_GC = 0x1,

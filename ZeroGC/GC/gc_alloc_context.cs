@@ -7,7 +7,7 @@ namespace ZeroGC
     using __int64 = Int64;
 
     [StructLayout(LayoutKind.Sequential)]
-    unsafe struct gc_alloc_context
+    public unsafe struct gc_alloc_context
     {
         public uint8_t* alloc_ptr;
         public uint8_t* alloc_limit;

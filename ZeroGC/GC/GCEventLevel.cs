@@ -3,7 +3,7 @@
 namespace ZeroGC
 {
     // Event levels corresponding to events that can be fired by the GC.
-    enum GCEventLevel
+    public enum GCEventLevel
     {
         GCEventLevel_None = 0,
         GCEventLevel_Fatal = 1,
