@@ -2,7 +2,7 @@
 
 namespace ZeroGC
 {
-    enum HandleType
+    public enum HandleType
     {
         /*
          * WEAK HANDLES

@@ -12,9 +12,9 @@ namespace ZeroGC
     {
         bool Initialize();
         void Shutdown();
-        IGCHandleStore GetGlobalHandleStore();
-        IGCHandleStore CreateHandleStore();
-        void DestroyHandleStore(IGCHandleStore store);
+        IGCHandleStore* GetGlobalHandleStore();
+        IGCHandleStore* CreateHandleStore();
+        void DestroyHandleStore(IGCHandleStore* store);
         OBJECTHANDLE CreateGlobalHandleOfType(Object @object, HandleType type);
         OBJECTHANDLE CreateDuplicateHandle(OBJECTHANDLE handle);
         void DestroyHandleOfType(OBJECTHANDLE handle, HandleType type);
